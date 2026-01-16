@@ -74,7 +74,7 @@ if st.session_state["results"]:
     
     st.dataframe(
         df[disp_cols],
-        use_container_width=True,
+        width="stretch",
         column_config=column_config,
         hide_index=True
     )
