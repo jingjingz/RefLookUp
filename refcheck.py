@@ -195,7 +195,7 @@ def get_category(item):
         return "Abstracts/Posters"
     return "Articles" 
 
-def lookup_pubmed_info(query, full_ref_text=None):
+def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com"):
     """
     Query PubMed. Returns a dictionary with detailed metadata and IDs.
     Validates result against query title and (optionally) full_ref_text for authors.
@@ -212,7 +212,7 @@ def lookup_pubmed_info(query, full_ref_text=None):
     if not Entrez:
         return default_res
 
-    Entrez.email = "A.N.Other@example.com"
+    Entrez.email = email
     
     try:
         # 1. Search - fetch candidates
@@ -492,7 +492,7 @@ def generate_ris_content(records):
         
     return "\n".join(lines)
 
-def build_reference_table(entries):
+def build_reference_table(entries, email="A.N.Other@example.com"):
     """Process entries and fetch info."""
     result = []
     print(f"Processing {len(entries)} references...")
@@ -502,7 +502,7 @@ def build_reference_table(entries):
             print(f"  {i+1}/{len(entries)}...")
             
         title_query = extract_title(ref)
-        info = lookup_pubmed_info(title_query, full_ref_text=ref)
+        info = lookup_pubmed_info(title_query, full_ref_text=ref, email=email)
         
         # If lookup failed, populate RefText with original
         if not info["PMID"]:
