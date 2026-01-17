@@ -9,7 +9,7 @@ Stop manually searching for identifiers. Turn messy or AI-generated citation lis
 - **Automated Verification**: Queries PubMed to find official PMIDs, PMCIDs, and DOIs.
 - **Metadata Enrichment**: Fills in missing details like publication year, volume, issue, and journal names.
 - **Format Standardization**: Convert references to **NLM** or **APA** style automatically.
-- **Article Categorization**: Distinguishes between full **Articles** and **Abstracts/Posters** based on publication type.
+- **Article Categorization**: Distinguishes between **Articles**, **Abstracts**, and **Preprints** (arXiv/biorxiv/medrxiv).
 - **Format Adaptive**: Automatically detects and processes text, CSV, and BibTeX files.
 - **Export Options**:
   - **CSV**: Spreadsheet-ready output with enriched metadata and ArXiv IDs.
@@ -19,7 +19,7 @@ Stop manually searching for identifiers. Turn messy or AI-generated citation lis
 
 ## 🚀 Quick Start (Streamlit App)
 
-The easiest way to use RefLookUp is via the web interface.
+The easiest way to use RefLookUp is via the web interface: **[https://reflookup.streamlit.app/](https://reflookup.streamlit.app/)**
 
 ### Running Locally
 
