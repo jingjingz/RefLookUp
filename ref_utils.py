@@ -364,6 +364,29 @@ def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com")
                  search_handle_retry.close()
                  id_list = search_results_retry["IdList"]
 
+        # 3. Smart Keyword Retry (Hyphen/Typo Tolerance)
+        if not id_list and full_ref_text:
+            # Extract first author surname
+            # Assumes format "Surname, Firstname" or "Surname F" at start
+            # Split by comma or space
+            auth_part = full_ref_text.split('.')[0] if '.' in full_ref_text else full_ref_text.split(',')[0]
+            surname = auth_part.split(',')[0].strip().split(' ')[0]
+            
+            # Extract title keywords (first 3-4 words of extracted title)
+            extracted_title = extract_title(full_ref_text if full_ref_text else query)
+            if extracted_title and len(surname) > 1 and len(extracted_title) > 10:
+                # Get first 4 words, ignoring short ones if possible, but simple split is safer
+                words = extracted_title.split()
+                # Take first 4 words
+                keywords = " ".join(words[:4])
+                
+                retry_query_2 = f"{surname}[Author] AND {keywords}[Title]"
+                # print(f"DEBUG: Smart Retry Query: {retry_query_2}")
+                search_handle_kw = Entrez.esearch(db="pubmed", term=retry_query_2, retmax=3)
+                search_results_kw = Entrez.read(search_handle_kw)
+                search_handle_kw.close()
+                id_list = search_results_kw["IdList"]
+
         if not id_list:
             return default_res
             
