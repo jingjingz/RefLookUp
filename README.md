@@ -46,6 +46,29 @@ The easiest way to use RefLookUp is via the web interface: **[https://reflookup.
 
 4. **Open your browser** to the URL shown (usually `http://localhost:8501`).
 
+## 📖 Tutorial: Managing Citations for Biosketches
+
+Use RefLookUp to verify your publications and easily import them into **MyNCBI** for your NIH Biosketch.
+
+### 1. Export References
+
+Export your selected references from Google Scholar (or another manager) as a `.bib` or `.csv` file.
+
+![Google Scholar Export](Tutorial/googlescholar.png)
+
+### 2. Verify in RefLookUp
+
+Go to the **[Web App](https://reflookup.streamlit.app/)**, drag and drop your exported file into the upload field, and click **"Search References"**.
+Once finished, look for the **RIS** download button. This format is specifically designed for citation managers.
+
+![RefLookUp Interface](Tutorial/app.png)
+
+### 3. Import to MyNCBI
+
+Go to your **MyNCBI Bibliography**. Click **"Manage My Bibliography"** -> **"Add Citations"** -> **"From a file"**. Upload the `.ris` file you just downloaded.
+
+![MyNCBI Import](Tutorial/myNCBI.png)
+
 ## 💻 CLI Usage (Batch Processing)
 
 You can process multiple files at once directly from the terminal.
