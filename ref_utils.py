@@ -115,6 +115,20 @@ def format_bibtex_authors(bibtex_author_str):
             
     return ", ".join(formatted)
 
+def clean_latex(text):
+    """
+    Remove LaTeX formatting for plain text use.
+    """
+    if not text: return ""
+    # Unescape: \& -> &, \_ -> _
+    text = text.replace(r"\&", "&").replace(r"\_", "_").replace(r"\%", "%")
+    # Dashes: -- -> -
+    text = text.replace("--", "-")
+    # Braces: {Title} -> Title. Be simple: remove all braces.
+    text = text.replace("{", "").replace("}", "")
+    # Extra whitespace cleanup
+    return " ".join(text.split())
+
 def parse_bibtex_content(text):
     """
     Parse BibTeX content string using Regex (Simple).
@@ -129,11 +143,24 @@ def parse_bibtex_content(text):
         # Helper to extract field
         def get_field(name):
             match = re.search(rf'{name}\s*=\s*[\"{{](.+?)[\"}}]\s*[,}}]', raw, re.IGNORECASE | re.DOTALL)
-            return " ".join(match.group(1).split()) if match else ""
+            val = " ".join(match.group(1).split()) if match else ""
+            return clean_latex(val)
 
         title = get_field("title")
         if title:
+            # Note: Author cleaning is handled partly by format_bibtex_authors but good to have clean input
+            # However format_bibtex_authors expects raw structure ' and ' so be careful not to break it
+            # But ' and ' is standard English, LaTeX chars inside names?
+            # Safe to use clean_latex on author string provided ' and ' isn't ' \& ' (unlikely)
             raw_authors = get_field("author")
+            
+            # Use raw uncleaned for formatting logic?
+            # Actually get_field now cleans. 
+            # If BibTeX had "Smith \& Wesson", clean_latex makes it "Smith & Wesson".
+            # format_bibtex_authors splits by " and ". 
+            # If author was "Barnes \and Noble", regex matching might be tricky but usually " and ".
+            # Let's assume standard ' and '.
+            
             # Format nicely for display
             authors = format_bibtex_authors(raw_authors)
             
