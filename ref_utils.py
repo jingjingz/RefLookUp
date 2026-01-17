@@ -365,27 +365,49 @@ def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com")
                  id_list = search_results_retry["IdList"]
 
         # 3. Smart Keyword Retry (Hyphen/Typo Tolerance)
+        # Use first 3-4 authors + Title Keywords
         if not id_list and full_ref_text:
-            # Extract first author surname
-            # Assumes format "Surname, Firstname" or "Surname F" at start
-            # Split by comma or space
-            auth_part = full_ref_text.split('.')[0] if '.' in full_ref_text else full_ref_text.split(',')[0]
-            surname = auth_part.split(',')[0].strip().split(' ')[0]
+            # Try to extract authors
+            # Fallback extraction logic
+            try:
+                # 1. BibTeX style " and "
+                if " and " in full_ref_text[:200]: # Check start of string
+                    auths = full_ref_text.split('.')
+                    if len(auths) > 0:
+                        raw_auths = auths[0].split(' and ')
+                        surnames = [a.strip().split(',')[0].strip().split(' ')[0] for a in raw_auths[:4]]
+                else: 
+                    # 2. Comma style "Smith J, Doe A"
+                    # Split by dot (end of author list usually)
+                    potential_list = full_ref_text.split('.')[0]
+                    # Split by comma
+                    raw_parts = potential_list.split(',')
+                    surnames = []
+                    for p in raw_parts[:4]: # Limit to first 4 chunks
+                        s = p.strip().split(' ')[0]
+                        if len(s) > 1 and not s.isdigit():
+                            surnames.append(s)
             
-            # Extract title keywords (first 3-4 words of extracted title)
+            except:
+                surnames = []
+
+            # Extract title keywords
             extracted_title = extract_title(full_ref_text if full_ref_text else query)
-            if extracted_title and len(surname) > 1 and len(extracted_title) > 10:
-                # Get first 4 words, ignoring short ones if possible, but simple split is safer
-                words = extracted_title.split()
-                # Take first 4 words
-                keywords = " ".join(words[:4])
+            
+            if extracted_title and len(extracted_title) > 10 and surnames:
+                # Get first 4 words
+                keywords = " ".join(extracted_title.split()[:4])
                 
-                retry_query_2 = f"{surname}[Author] AND {keywords}[Title]"
-                # print(f"DEBUG: Smart Retry Query: {retry_query_2}")
-                search_handle_kw = Entrez.esearch(db="pubmed", term=retry_query_2, retmax=3)
-                search_results_kw = Entrez.read(search_handle_kw)
-                search_handle_kw.close()
-                id_list = search_results_kw["IdList"]
+                # Construct Query: (Auth1[Author] OR Auth2[Author]...) AND Keywords[Title]
+                auth_query = " OR ".join([f"{s}[Author]" for s in surnames if len(s)>1])
+                
+                if auth_query:
+                    retry_query_2 = f"({auth_query}) AND {keywords}[Title]"
+                    # print(f"DEBUG: Multi-Auth Retry Query: {retry_query_2}")
+                    search_handle_kw = Entrez.esearch(db="pubmed", term=retry_query_2, retmax=3)
+                    search_results_kw = Entrez.read(search_handle_kw)
+                    search_handle_kw.close()
+                    id_list = search_results_kw["IdList"]
 
         if not id_list:
             return default_res
@@ -411,16 +433,16 @@ def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com")
             clean_found = re.sub(r'[^a-zA-Z0-9]', '', found_title).lower()
             
             # 1. Strict Title Check
-            # Ratio of 0.9 allows for minor typos/spacing but is essentially "Exact"
+            # Updated: >90% correlation required
             similarity = SequenceMatcher(None, clean_found, clean_query).ratio()
             
             # Also check substring match (sometimes query is cut off or data has extra info)
             if clean_query in clean_found or clean_found in clean_query:
                 # Boost if substring match exists
-                if similarity < 0.9: 
-                    similarity = 0.85 # Artificial boost if it's a substring match
+                if similarity < 0.92: 
+                    similarity = 0.92 # Boost to pass strict check if substring matches
             
-            if similarity < 0.85: # Strict threshold
+            if similarity < 0.90: # Very strict threshold
                 continue
                 
             # 2. Author Check (if reference text available)
