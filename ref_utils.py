@@ -19,12 +19,77 @@ except ImportError:
     Entrez = None
 
 
-def parse_references(text):
+def parse_references_text(text):
     """
-    Split the input text into references.
+    Split the input text (TXT) into references.
     """
     entries = [line.strip() for line in text.splitlines() if line.strip()]
     return entries
+
+def parse_csv_content(text):
+    """
+    Parse CSV content string. Expects 'Title' column.
+    """
+    import io
+    entries = []
+    try:
+        reader = csv.DictReader(io.StringIO(text))
+        for row in reader:
+            # Flexible column checking
+            if "Title" in row and row["Title"]:
+                # Construct a pseudo-ref for context if possible
+                title = row["Title"]
+                authors = row.get("Authors", "") or row.get("Author", "")
+                if authors:
+                    entries.append(f"{authors}. {title}")
+                else:
+                    entries.append(title)
+            elif "Citation" in row and row["Citation"]:
+                 entries.append(row["Citation"])
+    except Exception as e:
+        print(f"Error parsing CSV: {e}")
+    return entries
+
+def parse_bibtex_content(text):
+    """
+    Parse BibTeX content string using Regex (Simple).
+    """
+    entries = []
+    # simple split by @article, @inproceedings etc might be rough.
+    # Lets iterate lines and find title={...}
+    # Better: finding entries
+    
+    # Heuristic: split by @, then look for title field
+    raw_entries = text.split('@')
+    for raw in raw_entries:
+        if not raw.strip(): continue
+        
+        # Extract title
+        title_match = re.search(r'title\s*=\s*[\"{](.+?)[\"}]\s*[,}]', raw, re.IGNORECASE | re.DOTALL)
+        if title_match:
+            title = " ".join(title_match.group(1).split()) # normalize whitespace
+            
+            # Extract author for context
+            author_match = re.search(r'author\s*=\s*[\"{](.+?)[\"}]\s*[,}]', raw, re.IGNORECASE | re.DOTALL)
+            if author_match:
+                authors = " ".join(author_match.group(1).split())
+                entries.append(f"{authors}. {title}")
+            else:
+                entries.append(title)
+                
+    return entries
+
+def parse_any_input(content, filename):
+    """
+    Dispatch based on filename extension.
+    """
+    ext = filename.lower().split('.')[-1]
+    if ext == 'csv':
+        return parse_csv_content(content)
+    elif ext in ['bib', 'bibtex']:
+        return parse_bibtex_content(content)
+    else:
+        return parse_references_text(content)
 
 def extract_year(reference):
     """Find the first 4‑digit year in the reference; return as int or 0."""
@@ -602,26 +667,59 @@ def save_to_files(records, csv_path, txt_path, style="NLM", sort_by="Newest", gr
 
 if __name__ == "__main__":
     try:
-        with open("references.txt", "r", encoding="utf-8") as f:
-            raw_text = f.read()
-        entries = parse_references(raw_text)
-        records = []
-        print(f"Processing {len(entries)} references...")
-        for i, ref in enumerate(entries):
-            if (i+1) % 5 == 0 or i == 0:
-                 print(f"  {i+1}/{len(entries)}...")
-            t = extract_title(ref)
-            info = lookup_pubmed_info(t, full_ref_text=ref)
-            if not info["PMID"]:
-                cleaned = clean_fallback_text(ref)
-                info["RefText_NLM"] = cleaned
-                info["RefText_APA"] = cleaned
-                info["Year"] = extract_year(ref)
-                info.update(parse_fallback_metadata(ref))
-            records.append(info)
+        input_dir = "input_examples"
+        output_dir = "output"
+        import os
+        
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
             
-        # Default CLI behavior (can act as test)
-        save_to_files(records, "recent_references.csv", "recent_references.txt", style="NLM", sort_by="Newest", group_by_type=True)
-        print("Done!")
-    except FileNotFoundError:
-        print("references.txt not found.")
+        supported_exts = ['.txt', '.csv', '.bib', '.bibtex']
+        
+        if not os.path.exists(input_dir):
+            print(f"Input directory '{input_dir}' not found.")
+        else:
+            files_found = [f for f in os.listdir(input_dir) if any(f.endswith(ext) for ext in supported_exts)]
+            print(f"Found {len(files_found)} files to process in {input_dir}: {files_found}")
+            
+            for filename in files_found:
+                file_path = os.path.join(input_dir, filename)
+                print(f"\n--- Processing {filename} ---")
+                
+                with open(file_path, "r", encoding="utf-8", errors='replace') as f:
+                    content = f.read()
+                
+                entries = parse_any_input(content, filename)
+                if not entries:
+                    print(f"  No entries found in {filename}.")
+                    continue
+                    
+                records = []
+                print(f"  Found {len(entries)} references/entries...")
+                for i, ref in enumerate(entries):
+                    if (i+1) % 5 == 0 or i == 0:
+                         print(f"  {i+1}/{len(entries)}...")
+                    t = extract_title(ref)
+                    # Pass the full ref string (which might be author+title) for validation
+                    info = lookup_pubmed_info(t, full_ref_text=ref)
+                    
+                    if not info["PMID"]:
+                        cleaned = clean_fallback_text(ref)
+                        info["RefText_NLM"] = cleaned
+                        info["RefText_APA"] = cleaned
+                        info["Year"] = extract_year(ref)
+                        info.update(parse_fallback_metadata(ref))
+                        
+                    records.append(info)
+                
+                # Derive output name
+                base_name = os.path.splitext(filename)[0]
+                out_csv = os.path.join(output_dir, f"{base_name}_results.csv")
+                out_txt = os.path.join(output_dir, f"{base_name}_results.txt")
+                
+                save_to_files(records, out_csv, out_txt, style="NLM", sort_by="Newest", group_by_type=True)
+                print(f"  Saved results to {out_csv}")
+
+        print("\nBatch processing complete!")
+    except Exception as e:
+        print(f"An error occurred: {e}")

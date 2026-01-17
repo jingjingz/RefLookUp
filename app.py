@@ -25,7 +25,7 @@ style_option = st.sidebar.selectbox("Citation Style", ["NLM", "APA"])
 sort_option = st.sidebar.radio("Sort Order", ["Newest", "Oldest"])
 group_option = st.sidebar.checkbox("Group by Type (Articles/Abstracts)", value=True)
 
-uploaded_file = st.file_uploader("Choose a file (references.txt)", type=["txt"])
+uploaded_file = st.file_uploader("Choose a file (txt, csv, bib)", type=["txt", "csv", "bib"])
 
 if uploaded_file is not None:
     # Button to trigger search
@@ -33,7 +33,8 @@ if uploaded_file is not None:
         if not entrez_email or "@" not in entrez_email:
              st.warning("⚠️ Please enter a valid email address in the sidebar to ensure PubMed access.")
         
-        stringio = io.StringIO(uploaded_file.getvalue().decode("utf-8"))
+        # Read file as string
+        stringio = io.StringIO(uploaded_file.getvalue().decode("utf-8", errors='replace'))
         raw_text = stringio.read()
         
         # Use provided email or fallback (though fallback often fails on cloud)
@@ -45,8 +46,10 @@ if uploaded_file is not None:
         
         results = []
         with st.spinner("Initializing search..."):
-            entries = refcheck.parse_references(raw_text)
+            # Adaptive parsing based on filename
+            entries = refcheck.parse_any_input(raw_text, uploaded_file.name)
             total = len(entries)
+            st.info(f"Parsed {total} items from {uploaded_file.name}")
             
         for i, ref in enumerate(entries):
             # Display current reference (truncated)

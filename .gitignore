@@ -8,6 +8,8 @@ __pycache__/
 *.ris
 *.pdf
 recent_references.txt
+output/
+!input_examples/
 
 
 # Local
