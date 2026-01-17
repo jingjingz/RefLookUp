@@ -377,78 +377,58 @@ def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com")
     Entrez.email = email
     
     try:
-        # 1. Search - fetch candidates
-        time.sleep(0.35)
-        # Fetch a few to check for best match
-        search_handle = Entrez.esearch(db="pubmed", term=query, retmax=3)
-        search_results = Entrez.read(search_handle)
-        search_handle.close()
+        # Build Composite Query
+        qs = [f"({query})"]
         
-        id_list = search_results["IdList"]
+        # 1. Extracted Title Query
+        # Try to extract a clean title from the query/ref_text
+        text_to_use = full_ref_text if full_ref_text else query
+        extracted_title = extract_title(text_to_use)
         
-        # 2. Retry with extracted title if no results found
-        if not id_list:
-            # Try to extract a clean title from the query/ref_text
-            # Use full_ref_text if available as it might be cleaner than query
-            text_to_use = full_ref_text if full_ref_text else query
-            extracted_title = extract_title(text_to_use)
-            
-            # Remove authors/journal if extract_title is heuristic, 
-            # effectively we want a clean string. 
-            # If extracted_title is significantly different/shorter than query, use it.
-            if extracted_title and len(extracted_title) > 10:
-                 # Construct retry query
-                 retry_query = f"{extracted_title}[Title]"
-                 # time.sleep(0.1) # small delay
-                 search_handle_retry = Entrez.esearch(db="pubmed", term=retry_query, retmax=3)
-                 search_results_retry = Entrez.read(search_handle_retry)
-                 search_handle_retry.close()
-                 id_list = search_results_retry["IdList"]
-
-        # 3. Smart Keyword Retry (Hyphen/Typo Tolerance)
-        # Use first 3-4 authors + Title Keywords
-        if not id_list and full_ref_text:
-            # Try to extract authors
-            # Fallback extraction logic
+        if extracted_title and len(extracted_title) > 10:
+             qs.append(f"({extracted_title}[Title])")
+             
+        # 2. Smart Keyword Query (Auth + Title Keywords)
+        if full_ref_text:
             try:
                 # 1. BibTeX style " and "
-                if " and " in full_ref_text[:200]: # Check start of string
+                if " and " in full_ref_text[:200]: 
                     auths = full_ref_text.split('.')
                     if len(auths) > 0:
                         raw_auths = auths[0].split(' and ')
                         surnames = [a.strip().split(',')[0].strip().split(' ')[0] for a in raw_auths[:4]]
                 else: 
-                    # 2. Comma style "Smith J, Doe A"
-                    # Split by dot (end of author list usually)
+                    # 2. Comma style
                     potential_list = full_ref_text.split('.')[0]
-                    # Split by comma
                     raw_parts = potential_list.split(',')
                     surnames = []
-                    for p in raw_parts[:4]: # Limit to first 4 chunks
+                    for p in raw_parts[:4]:
                         s = p.strip().split(' ')[0]
                         if len(s) > 1 and not s.isdigit():
                             surnames.append(s)
-            
             except:
                 surnames = []
 
-            # Extract title keywords
-            extracted_title = extract_title(full_ref_text if full_ref_text else query)
-            
             if extracted_title and len(extracted_title) > 10 and surnames:
-                # Get first 4 words
                 keywords = " ".join(extracted_title.split()[:4])
-                
-                # Construct Query: (Auth1[Author] OR Auth2[Author]...) AND Keywords[Title]
                 auth_query = " OR ".join([f"{s}[Author]" for s in surnames if len(s)>1])
-                
                 if auth_query:
-                    retry_query_2 = f"({auth_query}) AND {keywords}[Title]"
-                    # print(f"DEBUG: Multi-Auth Retry Query: {retry_query_2}")
-                    search_handle_kw = Entrez.esearch(db="pubmed", term=retry_query_2, retmax=3)
-                    search_results_kw = Entrez.read(search_handle_kw)
-                    search_handle_kw.close()
-                    id_list = search_results_kw["IdList"]
+                    qs.append(f"(({auth_query}) AND {keywords}[Title])")
+        
+        # Join into single composite query
+        composite_query = " OR ".join(qs)
+        # print(f"DEBUG: Composite Query: {composite_query}")
+        
+        # 1. Single API Call
+        time.sleep(0.1) # Reduced sleep
+        search_handle = Entrez.esearch(db="pubmed", term=composite_query, retmax=5) # Fetch a few more
+        search_results = Entrez.read(search_handle)
+        search_handle.close()
+        
+        id_list = search_results["IdList"]
+
+        if not id_list:
+            return default_res
 
         if not id_list:
             return default_res
