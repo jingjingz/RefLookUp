@@ -229,6 +229,7 @@ def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com")
             return default_res
             
         # 2. Fetch Summaries for candidates
+        time.sleep(0.1) # Avoid burst rate limit
         summary_handle = Entrez.esummary(db="pubmed", id=",".join(id_list))
         summary_results = Entrez.read(summary_handle)
         summary_handle.close()

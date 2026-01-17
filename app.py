@@ -39,11 +39,41 @@ if uploaded_file is not None:
         # Use provided email or fallback (though fallback often fails on cloud)
         email_to_use = entrez_email if entrez_email else "A.N.Other@example.com"
         
-        with st.spinner("Searching PubMed... This may take a moment."):
+        # Prepare UI elements
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+        
+        results = []
+        with st.spinner("Initializing search..."):
             entries = refcheck.parse_references(raw_text)
-            results = refcheck.build_reference_table(entries, email=email_to_use)
-            st.session_state["results"] = results
-            st.success(f"Processed {len(results)} references.")
+            total = len(entries)
+            
+        for i, ref in enumerate(entries):
+            # Display current reference (truncated)
+            short_ref = (ref[:60] + "...") if len(ref) > 60 else ref
+            status_text.markdown(f"**Processing {i+1}/{total}**: `{short_ref}`")
+            progress_bar.progress((i + 1) / total)
+            
+            # Atomic lookup
+            title_query = refcheck.extract_title(ref)
+            info = refcheck.lookup_pubmed_info(title_query, full_ref_text=ref, email=email_to_use)
+            
+            # Fallback logic (replicated from old build_reference_table)
+            if not info["PMID"]:
+                    cleaned_ref = refcheck.clean_fallback_text(ref)
+                    info["RefText_NLM"] = cleaned_ref
+                    info["RefText_APA"] = cleaned_ref
+                    info["Year"] = refcheck.extract_year(ref)
+                    
+                    # Attempt to parse fallback metadata for RIS
+                    fallback_data = refcheck.parse_fallback_metadata(ref)
+                    info.update(fallback_data)
+            
+            results.append(info)
+            
+        status_text.success("Done!")
+        st.session_state["results"] = results
+        st.success(f"Processed {len(results)} references.")
 
 # Display Results if they exist in state
 if st.session_state["results"]:
