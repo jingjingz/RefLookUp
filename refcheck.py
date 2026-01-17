@@ -4,6 +4,8 @@ import time
 import ssl
 from datetime import datetime
 
+print("RefCheck module v2 loaded")
+
 try:
     _create_unverified_https_context = ssl._create_unverified_context
 except AttributeError:
