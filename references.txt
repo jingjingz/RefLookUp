@@ -1,0 +1,151 @@
+Steinglass JE, Albano AM, Simpson HB, Wang Y, Zou J, Attia E, Walsh BT. Confronting fear using exposure and response prevention for anorexia nervosa: A randomized controlled pilot study. International Journal of Eating Disorders. 2014;47(2):174-180. Wiley Online Library.
+
+Li C, Wang S, Yan JL, Piper RJ, Liu H, Torheim T, Kim H, Zou J, Boonzaier NR, Sinha R. Intratumoral heterogeneity of glioblastoma infiltration revealed by joint histogram analysis of diffusion tensor imaging. Neurosurgery. 2019;85(4):524-534. LWW.
+
+Li C, Yan JL, Torheim T, McLean MA, Boonzaier NR, Zou J, Huang Y, Yuan J, van Dijken BR, Matys T. Low perfusion compartments in glioblastoma quantified by advanced magnetic resonance imaging and correlated with patient survival. Radiotherapy and Oncology. 2019;134:17-24. Elsevier.
+
+Banks SJ, Qiu Y, Fan CC, Dale AM, Zou J, Askew B, Feldman HH, Alzheimer's Disease Neuroimaging Initiative. Enriching the design of Alzheimer's disease clinical trials: application of the polygenic hazard score and composite outcome measures. Alzheimer's & Dementia: Translational Research & Clinical Interventions. 2020;6(1):e12071.
+
+Daniels LB, Sitapati AM, Zhang J, Zou J, Bui QM, Ren J, Longhurst CA, Criqui MH, Messer K. Relation of statin use prior to admission to severity and recovery among COVID-19 inpatients. The American journal of cardiology. 2020;136:149-155. Excerpta Medica.
+
+Zou J, Davis RA, Samorodnitsky G. Extreme Value Analysis Without the Largest Values: What can be Done?. Probability in the Engineering and Informational Sciences. 2020;34(2):200-220. Cambridge University Press.
+
+Palmer CE, Zhao W, Loughnan RJ, Zou J, Fan CC, Thompson WK, Dale AM, Jernigan TL. Fluid and crystallised intelligence are associated with distinct regionalisation patterns of cortical morphology. bioRxiv. 2020. Cold Spring Harbor Laboratory.
+
+Rodríguez‐Soto AE, Fang LK, Holland D, Zou J, Park HH, Keenan KE, Bartsch H, Kuperman J, Wallace AM, Hahn M. Correction of artifacts induced by B0 inhomogeneities in breast MRI using reduced‐field‐of‐view echo‐planar imaging and enhanced reversed polarity gradient method. Journal of Magnetic Resonance Imaging. 2021;53(5):1581-1591. John Wiley & Sons, Inc. Hoboken, USA.
+
+Yusufaly T, Zou J, Nelson T, Singhal M, Wong H, Williamson C, Saenz C, Mayadev J, McHale M, Yashar C. Whole-Body Radiomics for Prediction of Treatment Failure in Cervical Cancer. International Journal of Radiation Oncology, Biology, Physics. 2020;108(3):e462. Elsevier.
+
+Supun Nakandala MMJFTZJBJCAZLSJHDRJZAKLN. Application of Convolutional Neural Network Algorithms for Advancing Sedentary and Activity Bout Classification. Journal for the Measurement of Physical Behaviour. 2021.
+
+Zou J, Lederer DJ, Rabinowitz D. Efficiency in Lung Transplant Allocation Strategies. arXiv preprint arXiv:1812.07691. 2018.
+
+Zou J, Lederer DJ, Rabinowitz D. Efficiency in lung transplant allocation strategies. 2020.
+
+Mell LK, Nelson T, Thompson CA, Williamson CW, Vitzthum LK, Zou J. Bias reduction through analysis of competing events (BRACE): a novel method to mitigate bias from residual confounding in observational data. medRxiv. 2020;2020.12. 18.20248507. Cold Spring Harbor Laboratory Press.
+
+Williamson C, Vitzthum L, Zou J, Zakeri K, Sharabi A, Murphy J, Mell L. Competing risk analysis to address selection bias in comparative effectiveness research. International Journal of Radiation Oncology, Biology, Physics. 2020;108(3):S145-S146. Elsevier.
+
+Palmer C, Zhao W, Loughnan R, Zou J, Fan C, Thompson W, Dale A, Jernigan T. Distinct regionalization patterns of cortical morphology are associated with cognitive performance across different domains. Cerebral Cortex. 2021;31(8):3856-3871. Oxford University Press.
+
+Williamson CW, Nelson T, Thompson CA, Vitzthum LK, Zakeri K, Riviere P, Bryant AK, Sharabi AB, Zou J, Mell LK. Application of BRACE Method to Address Treatment Selection Bias in Observational Data. medRxiv. 2021;2021.05. 17.21257332. Cold Spring Harbor Laboratory Press.
+
+Greenwood-Hickman MA, Nakandala S, Jankowska MM, Rosenberg DE, Tuz-Zahra F, Bellettiere J, Carlson J, Hibbing PR, Zou J, Lacroix AZ. The CNN hip accelerometer posture (CHAP) method for classifying sitting patterns from hip accelerometers: a validation study. Medicine and science in sports and exercise. 2021;53(11):2445.
+
+Yusufaly TI, Zou J, Nelson TJ, Williamson CW, Simon A, Singhal M, Liu H, Wong H, Saenz CC, Mayadev J. Improved prognosis of treatment failure in cervical cancer with nontumor PET/CT radiomics. Journal of Nuclear Medicine. 2022;63(7):1087-1093. Society of Nuclear Medicine.
+
+Wang Y, Lin J, Zou J, Pan Y, Yao T, Mei T. Improving Self-supervised Learning with Automated Unsupervised Outlier Arbitration. Advances in Neural Information Processing Systems (NeurIPS 2021). 2021;34:27617-27630.
+
+Palmer C, Zhao W, Loughnan R, Zou J, Fan C, Thompson W, Jernigan T, Dale A. Determining the association between regionalisation of cortical morphology and cognition in 10,145 children. BioRxiv. 2019;816025. Cold Spring Harbor Laboratory.
+
+Makowski C, van der Meer D, Dong W, Wang H, Wu Y, Zou J, Liu C, Rosenthal SB, Hagler Jr DJ, Fan CC. Discovery of genomic loci of the human cerebral cortex using genetically informed brain atlases. Science. 2022;375(6580):522-528. American Association for the Advancement of Science.
+
+Williamson CW, Nelson TJ, Thompson CA, Vitzthum LK, Zakeri K, Riviere PJ, Bryant AK, Sharabi AB, Zou J, Mell LK. Bias reduction through analysis of competing events (BRACE) correction to address cancer treatment selection bias in observational data. Clinical Cancer Research. 2022;28(9):1832-1840. American Association for Cancer Research.
+
+Nelson TJ, Thompson CA, Zou J, Kumar A, Sangchan P, Williamson CW, Vitzthum LK, Sharabi AB, Murphy JD, Fakhry CA. Validation of NRG Oncology's prognostic nomograms for oropharyngeal cancer in the Veterans Affairs database. Cancer. 2022.
+
+Liu HC, Vitzthum L, Williamson CW, Hill LM, Zou J, Nelson TJ, Faung B, Linnemeyer K, Todd JR, Sacco A. Post-Treatment Evaluation of Swallowing Function Using Quantitative Videofluoroscopy in Head and Neck Patients Undergoing Immunoradiotherapy or Chemoradiotherapy. International Journal of Radiation Oncology, Biology, Physics. 2022;112(5):e57. Elsevier.
+
+Makowski C, van der Meer D, Dong W, Wang H, Wu Y, Zou J, Liu C, Rosenthal SB, Hagler DJ, Fan CC. Clustering of Genetic Effects on Cortical Morphology and Links to Psychiatric Disorders. Biological Psychiatry. 2022;91(9):S76-S77. Elsevier.
+
+Makowski C, Wang H, Srinivasan A, Qi A, Qiu Y, van der Meer D, Frei O, Zou J, Visscher PM, Yang J. Larger cerebral cortex is genetically correlated with greater frontal area and dorsal thickness. Proceedings of the National Academy of Sciences. 2023;120(11):e2214834120.
+
+Karthikeyan S, Nguyen A, McDonald D, Zong Y, Ronquillo N, Ren J, Zou J, Farmer S, Humphrey G, Henderson D. Rapid, large-scale wastewater surveillance and automated reporting system enable early detection of nearly 85% of COVID-19 cases on a university campus. Large-Scale Wastewater Surveillance and Automated Reporting System Enable Early Detection of Nearly. 2021;85:793-814.
+
+Wang Y, Tuz-Zahra F, Zablocki R, Di C, Jankowska MM, Bellettiere J, Carlson JA, LaCroix AZ, Hartman SJ, Rosenberg DE. Sedentary Behavior Estimation with Hip-worn Accelerometer Data: Segmentation, Classification and Thresholding. arXiv preprint arXiv:2207.01809. 2022.
+
+Carlson JA, Ridgers ND, Nakandala S, Zablocki R, Tuz-Zahra F, Bellettiere J, Hibbing PR, Steel C, Jankowska MM, Rosenberg DE. CHAP-child: an open source method for estimating sit-to-stand transitions and sedentary bout patterns from hip accelerometers among children. International Journal of Behavioral Nutrition and Physical Activity. 2022;19(1):109. BioMed Central London.
+
+Bellettiere J, Nakandala S, Tuz-Zahra F, Winkler EA, Hibbing PR, Healy GN, Dunstan DW, Owen N, Greenwood-Hickman MA, Rosenberg DE. CHAP-Adult: A Reliable and Valid Algorithm to classify sitting and measure sitting patterns using data from hip-worn accelerometers in adults aged 35+. Journal for the measurement of physical behaviour. 2022;5(4):215-223. Human Kinetics.
+
+Lin W, Zou J, Di C, Sears DD, Rock CL, Natarajan L. Longitudinal associations between timing of physical activity accumulation and health: application of functional data methods. Statistics in biosciences. 2023;15(2):309-329. Springer US New York.
+
+Zou J, Chen CH, Aston JAD. Mixed Effects Model for Functional Surfaces with Applications to Cortical Surface Task fMRI. arXiv preprint arXiv:2210.05797. 2022.
+
+Wang Y, Zou J, Lin J, Ling Q, Pan Y, Yao T, Mei T. Out-of-Distribution Detection via Conditional Kernel Independence Model. 36th Conference on Neural Information Processing Systems (NeurIPS 2022). 2022.
+
+Zou J, Daniels LB, Messer K, Rabinowitz D. Optimal Designs of Two-Phase Case-Control Studies for General Predictor Effects. arXiv:2211.05937. 2022.
+
+Wei Y, Li C, Cui Z, Mayrand RC, Zou J, Wong AL, Sinha R, Matys T, Schönlieb CB, Price SJ. Structural connectome quantifies tumor invasion and predicts survival in glioblastoma patients. Brain. 2022. Cold Spring Harbor Laboratory.
+
+Liu HC, Williamson CW, Zou J, Todd JR, Nelson TJ, Hill LM, Linnemeyer KE, Henderson G, Madgula P, Faung B. Quantitative prediction of aspiration risk in head and neck cancer patients treated with radiation therapy. Oral Oncology. 2023;136:106247. Pergamon.
+
+Williamson CW, Kotha NV, Zou J, Brown D, Scanderbeg D, Rash D, Einck J, Yashar C, Mell LK, Mayadev J. Outcomes from a 3-fraction high-dose-rate brachytherapy regimen for patients with cervical cancer. Brachytherapy. 2023;22(3):317-324. Elsevier.
+
+Karthikeyan S, Nguyen A, McDonald D, Zong Y, Ronquillo N, Ren J, Zou J, Farmer S, Humphrey G, Henderson D. Rapid, large-scale wastewater surveillance and automated reporting system enable early detection of nearly 85% of COVID-19 cases on a university campus. Msystems 6: e00793-21. PMID:[Europe PMC free article][Abstract][CrossRef][Google Scholar]. 2021.
+
+Wang Y, Zou J, Lin J, Ling Q, Pan Y, Yao T, Mei T. Out-of-Distribution Detection via Conditional Kernel Independence Model-Supplementary File.
+
+Wang Y, Lin J, Zou J, Pan Y, Yao T, Mei T. Improving Self-supervised Learning with Automated Unsupervised Outlier Arbitration Supplementary File.
+
+Lumibao JC, Okhovat SR, Peck KL, Lin X, Lande K, Yomtoubian S, Ng I, Tiriac H, Lowy AM, Zou J. The effect of extracellular matrix on the precision medicine utility of pancreatic cancer patient–derived organoids. JCI insight. 2024;9(1):e172419.
+
+Vu T, Lin T, Zou J, Novitsky V, Tu X, De Gruttola V. Estimating viral genetic linkage rates in the presence of missing data. arXiv preprint arXiv:2203.12779. 2022.
+
+Hibbing PR, Carlson JA, Steel C, Greenwood-Hickman MA, Nakandala S, Jankowska MM, Bellettiere J, Zou J, LaCroix AZ, Kumar A. Low movement, deep-learned sitting patterns, and sedentary behavior in the International Study of Childhood Obesity, Lifestyle and the Environment (ISCOLE). International Journal of Obesity. 2023;47(11):1100-1107. Nature Publishing Group UK London.
+
+Liu H, Morse R, Nelson T, Williamson C, Vitzthum L, Zakeri K, Henderson G, Thompson C, Zou J, Gillison M. Effectiveness of Cisplatin in P16+ Oropharyngeal Cancer According to Relative Risk for Cancer Events: Ancillary Analysis of RTOG 1016. International Journal of Radiation Oncology, Biology, Physics. 2023;117(2):S69. Elsevier.
+
+Morse R, Nelson T, Liu H, Williamson C, Sacco A, Chitti B, Henderson G, Todd J, Chen X, Gan G. Comparison of Standard vs. Relative Risk Models to Define Candidates for Deintensification in Locoregionally Advanced P16+ Oropharyngeal Cancer. International Journal of Radiation Oncology, Biology, Physics. 2023;117(2):e608-e609. Elsevier.
+
+Lin T, Karthikeyan S, Satterlund A, Schooley R, Knight R, De Gruttola V, Martin N, Zou J. Optimizing campus-wide COVID-19 test notifications with interpretable wastewater time-series features using machine learning models. Scientific Reports. 2023;13(1):20670. Nature Publishing Group UK London.
+
+Zou J, Lin T, Di C, Bellettiere J, Jankowska MM, Hartman SJ, Sears DD, LaCroix AZ, Rock CL, Natarajan L. A riemann manifold model framework for longitudinal changes in physical activity patterns. The annals of applied statistics. 2023;17(4):3216.
+
+Gou R, Zhang Y, Wu SW, Liu F. Synthesis of Polysubstituted 3-Chalcogenated Indoles through Copper (I) Iodide-Catalyzed Three-Component Domino Reactions. Synlett. 2019;30(02):207-212. © Georg Thieme Verlag.
+
+Rodríguez‐Soto AE, Zou J, Loubrie S, Ebrahimi S, Jordan S, Schlein A, Lim V, Ojeda‐Fournier H, Rakow‐Penner R. Effect of phase encoding direction on image quality in single‐shot EPI diffusion‐weighted imaging of the breast. Journal of Magnetic Resonance Imaging. 2024;60(4):1340-1349. John Wiley & Sons, Inc. Hoboken, USA.
+
+Chen R, Lin T, Liu L, Liu J, Chen R, Zou J, Liu C, Natarajan L, Tang W, Zhang X. A doubly robust estimator for the Mann Whitney Wilcoxon rank sum test when applied for causal inference in observational studies. Journal of Applied Statistics. 2024;51(16):3267-3291. Taylor & Francis.
+
+Weitz J, Nishizaki D, Patel J, Ng I, Sun S, Ramms D, Zou J, Baumgartner J, Kelly K, Patel H. An ex-vivo organotypic culture platform of mucinous carcinomatosis peritonei identifies CDK4-6 inhibition as a novel treatment. Cancer Research. 2024;84(6_Supplement):6777-6777. The American Association for Cancer Research.
+
+Zablocki RW, Hartman SJ, Di C, Zou J, Carlson JA, Hibbing PR, Rosenberg DE, Greenwood-Hickman MA, Dillon L, LaCroix AZ. Using functional principal component analysis (FPCA) to quantify sitting patterns derived from wearable sensors. International Journal of Behavioral Nutrition and Physical Activity. 2024;21(1):48. BioMed Central London.
+
+Stadnick NA, Laurent LC, Cain KL, Seifert M, Burola ML, Salgin L, Watson P, Oswald W, Munoz FA, Velasquez SF. Community-engaged optimization of COVID-19 rapid evaluation and testing experiences: roll-out implementation optimization trial. Implementation Science. 2023;18(1):46. Springer.
+
+Moore LC, Ahern F, Li L, Kallis K, Kisling K, Cortes KG, Nwachukwu C, Rash D, Yashar CM, Mayadev J. Neural network dose prediction for cervical brachytherapy: Overcoming data scarcity for applicator‐specific models. Medical Physics. 2024;51(7):4591-4606.
+
+Loubrie S, Rodriguez-Soto A, Seibert T, Hahn M, Dialani V, Wei C, Karimi Z, Kuperman J, Dale A, Pisano E. Predictive Model for Breast Lesion Assessment Using Restriction Spectrum Imaging.
+
+Qian Y, Wang Y, Zou J, Lin J, Pan Y, Yao T, Sun Q, Mei T. Kernel Masked Image Modeling Through the Lens of Theoretical Understanding. IEEE Transactions on Neural Networks and Learning Systems. 2024.
+
+Ahern F, Moore LC, Kisling K, Vasconcelos N, Zou J, Meyers SM. Probing Sources of Error in Deep Learning Models: Determining Clinical Variables That Impact Dose Prediction Performance. AAPM 66th Annual Meeting & Exhibition. 2024.
+
+Lin W, Zou J, Di C, Rock CL, Natarajan L. Multilevel Longitudinal Functional Principal Component Model. Statistics in medicine. 2024;43(25):4781-4795. John Wiley & Sons, Inc. Hoboken, USA.
+
+Makowski C, Westwater ML, Rhee KE, Bischoff-Grethe A, Wierenga CE. Characterization of parent and youth-reported eating disorder symptoms and premorbid factors in the Adolescent Brain Cognitive Development Study. Medrxiv: the Preprint Server for Health Sciences. 2023.
+
+Baxter MT, Conlin CC, Bagrodia A, Barrett T, Bartsch H, Brau A, Cooperberg M, Dale AM, Guidon A, Hahn ME. Advanced Restriction imaging and reconstruction Technology for Prostate MRI (ART-Pro): Study protocol for a multicenter, multinational trial evaluating biparametric MRI and advanced, quantitative diffusion MRI for detection of prostate cancer. medRxiv. 2024;2024.08. 29.24311575. Cold Spring Harbor Laboratory Press.
+
+Loubrie S, Zou J, Rodriguez‐Soto AE, Lim J, Andreassen MM, Cheng Y, Batasin SJ, Ebrahimi S, Fang LK, Conlin CC. Discrimination Between Benign and Malignant Lesions With Restriction Spectrum Imaging MRI in an Enriched Breast Cancer Screening Cohort. Journal of Magnetic Resonance Imaging. 2025;61(4):1876-1887. John Wiley & Sons, Inc. Hoboken, USA.
+
+Morse RT, Nelson TJ, Liu HC, Sangchan P, Chitti B, Thompson CA, Henderson G, Williamson CW, Todd JR, Prajapati DP. Redefining Candidates for Deintensification in Locoregionally Advanced P16+ Oropharyngeal Cancer Based on Relative Risk. International Journal of Radiation Oncology* Biology* Physics. 2025;121(3):684-692. Elsevier.
+
+Weitz J, Nishizaki D, Liau J, Patel J, Ng I, Sun S, Ramms D, Zou J, Wishart B, Rull J. Cyclin-dependent kinase 4/6 inhibition as a novel therapy for peritoneal mucinous carcinomatosis with GNAS mutations. Journal of Clinical Oncology. 2025;43(6):705-715. Wolters Kluwer Health.
+
+Osorio-Vasquez V, Lumibao JC, Peck KL, Lande K, Zhu J, Stamp M, Okhovat SR, Song H, Ogawa S, Hsu J. Identification of molecular and functional subtypes using chronic pancreatitis patient-derived organoid models. bioRxiv. 2024;2024.10. 30.620903. Cold Spring Harbor Laboratory.
+
+Baxter MT, Conlin CC, Bagrodia A, Barrett T, Bartsch H, Brau A, Cooperberg M, Dale AM, Guidon A, Hahn ME. Advanced Restriction Imaging and Reconstruction Technology for Prostate Magnetic Resonance Imaging (ART-Pro): A Study Protocol for a Multicenter, Multinational Trial Evaluating Biparametric Magnetic Resonance Imaging and Advanced, Quantitative Diffusion Magnetic Resonance Imaging for the Detection of Prostate Cancer. European Urology Open Science. 2025;71:132-143. Elsevier.
+
+Hyde ET, Evenson KR, Bandoli GE, Zou J, Crespo NC, Parada Jr H, LaMonte MJ, Howard AG, Nguyen S, Skiba MB. Accelerometer-measured physical activity, sedentary behavior, and mortality among cancer survivors: the Women’s Health Accelerometry Collaboration. JNCI Cancer Spectrum. 2025;9(3):pkaf034. Oxford University Press.
+
+Hyde E, Bandoli G, Zou J, Crespo N, Parada H, Evenson K, LaMonte M, Nguyen S, Howard AG, Stefanick M. Accelerometer-Measured Physical Activity and Sedentary Behavior and Risks of All-Cause and Cardiovascular Disease Mortality Among Postmenopausal Cancer Survivors: The Women’s Health Accelerometry Collaboration. Circulation. 2025;151(Suppl_1). Lippincott Williams & Wilkins Hagerstown, MD.
+
+Ryu H, Chen Y, Wang Y, LaCroix AZ, Di C, Natarajan L, Wang Y, Zou J. MoCA: Multi-modal Cross-masked Autoencoder for Digital Health Measurements. arXiv preprint arXiv:2506.02260. 2025.
+
+Kapoor NS, Ryu H, Smith L, Zou J, Mitchell K, Blair SL. Presentation and management of granulomatous mastitis in the United States: results of an American Society of Breast Surgeons registry study. Annals of Surgical Oncology. 2024;31(11):7396-7404. Springer International Publishing Cham.
+
+Kapoor NS, Ryu H, Smith L, Zou J, Mitchell K, Blair SL. ASO Visual Abstract: Presentation and Management of Granulomatous Mastitis in the United States—Results of an American Society of Breast Surgeons Registry Study. Annals of Surgical Oncology. 2024;31(11):7407-7408. Springer Nature BV.
+
+Karthikeyan S, Nguyen A, McDonald D, Zong Y, Ronquillo N, Ren J, Zou J, Farmer S, Humphrey G, Henderson D. Rapid, large-scale wastewater surveillance and automated reporting system enable early detection of nearly 85% of COVID-19 cases on a university campus. mSystems. 2021; 6: e0079321. DOI. 10:00793-21.
+
+Loubrie S, Zou J, Rodriguez‐Soto AE. Discrimination Between Benign and Malignant Lesions With Restriction Spectrum. 2024.
+
+Meyers S, Mitra A, Moore L, Kallis K, Rash D, Einck J, Nwachukwu C, Yashar C, Mayadev J, Ayala-Peacock D. GPP02 Presentation Time: 9: 24 AM: Rapid AI Auto-Planning Rivals Manual Expert Planning for Cervical Brachytherapy. Brachytherapy. 2025;24(4):S8-S9. Elsevier.
+
+Hyde ET, Bandoli GE, Zou J, Crespo NC, Parada H, Evenson KR, Howard AG, LaMonte MJ, Stefanick ML, Tinker LF. Prospective associations between accelerometer-measured physical activity, sedentary behavior, and healthy longevity: the Women’s Health Accelerometry Collaboration. The Journals of Gerontology, Series A: Biological Sciences and Medical Sciences. 2025;80(12):glaf206. Oxford University Press.
+
+Hyde ET, Crespo NC, Parada Jr H, Bandoli GE, Zou J, Di C, LaMonte MJ, Eaton C, Larson J, Kooperberg C. Aging In Motion: Describing The Longitudinal Decline In Accelerometer-Measured Physical Activity In Older Women. MEDICINE & SCIENCE IN SPORTS & EXERCISE. 2025;57(10 S):281-281. LIPPINCOTT WILLIAMS & WILKINS TWO COMMERCE SQ, 2001 MARKET ST, PHILADELPHIA ....
+
+Osorio-Vasquez V, Zhu J, Lumibao JC, Lande K, Peck KL, Stamp MK, Okhovat SR, Song H, Ogawa S, Kubota C. Chronic pancreatitis patient-derived organoids reveal new paths to precision therapeutics. bioRxiv. 2025;2024.10. 30.620903.

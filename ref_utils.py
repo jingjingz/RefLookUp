@@ -495,36 +495,7 @@ def generate_ris_content(records):
         
     return "\n".join(lines)
 
-def build_reference_table(entries, email="A.N.Other@example.com"):
-    """Process entries and fetch info."""
-    result = []
-    print(f"Processing {len(entries)} references...")
-    
-    for i, ref in enumerate(entries):
-        if (i+1) % 5 == 0 or i == 0:
-            print(f"  {i+1}/{len(entries)}...")
-            
-        title_query = extract_title(ref)
-        info = lookup_pubmed_info(title_query, full_ref_text=ref, email=email)
-        
-        # If lookup failed, populate RefText with original
-        if not info["PMID"]:
-             cleaned_ref = clean_fallback_text(ref)
-             info["RefText_NLM"] = cleaned_ref
-             info["RefText_APA"] = cleaned_ref
-             info["Year"] = extract_year(ref)
-             
-             # Attempt to parse fallback metadata for RIS
-             fallback_data = parse_fallback_metadata(ref)
-             info.update(fallback_data)
-             
-        # Even if lookup SUCCEEDED, we might want to check if we missed DOI/ArXiv in the search results
-        # e.g. sometimes PubMed record exists but has no DOI, but the text had it? 
-        # For now, let's just prioritize fallback parsing when PMID is missing.
-             
-        result.append(info)
-        
-    return result
+
 
 def save_to_files(records, csv_path, txt_path, style="NLM", sort_by="Newest", group_by_type=True):
     """
@@ -634,7 +605,21 @@ if __name__ == "__main__":
         with open("references.txt", "r", encoding="utf-8") as f:
             raw_text = f.read()
         entries = parse_references(raw_text)
-        records = build_reference_table(entries)
+        records = []
+        print(f"Processing {len(entries)} references...")
+        for i, ref in enumerate(entries):
+            if (i+1) % 5 == 0 or i == 0:
+                 print(f"  {i+1}/{len(entries)}...")
+            t = extract_title(ref)
+            info = lookup_pubmed_info(t, full_ref_text=ref)
+            if not info["PMID"]:
+                cleaned = clean_fallback_text(ref)
+                info["RefText_NLM"] = cleaned
+                info["RefText_APA"] = cleaned
+                info["Year"] = extract_year(ref)
+                info.update(parse_fallback_metadata(ref))
+            records.append(info)
+            
         # Default CLI behavior (can act as test)
         save_to_files(records, "recent_references.csv", "recent_references.txt", style="NLM", sort_by="Newest", group_by_type=True)
         print("Done!")

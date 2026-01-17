@@ -5,9 +5,10 @@ __pycache__/
 
 # Output files
 *.csv
-*.txt
 *.ris
 *.pdf
+recent_references.txt
+
 
 # Local
 run_app.sh
