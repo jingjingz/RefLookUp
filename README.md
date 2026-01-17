@@ -21,6 +21,12 @@ Stop manually searching for identifiers. Turn messy or AI-generated citation lis
 
 The easiest way to use RefLookUp is via the web interface: **[https://reflookup.streamlit.app/](https://reflookup.streamlit.app/)**
 
+## 📖 Tutorial: Managing Citations for Biosketches
+
+Use RefLookUp to verify your publications and easily import them into **MyNCBI** for your NIH Biosketch.
+
+📄 **[Download Step-by-Step Tutorial (PDF)](Tutorial/RefLookUp_Tutorial.pdf)**
+
 ### Running Locally
 
 1. **Clone the repository:**
@@ -45,12 +51,6 @@ The easiest way to use RefLookUp is via the web interface: **[https://reflookup.
    ```
 
 4. **Open your browser** to the URL shown (usually `http://localhost:8501`).
-
-## 📖 Tutorial: Managing Citations for Biosketches
-
-Use RefLookUp to verify your publications and easily import them into **MyNCBI** for your NIH Biosketch.
-
-📄 **[Download Step-by-Step Tutorial (PDF)](Tutorial/RefLookUp_Tutorial.pdf)**
 
 ## 💻 CLI Usage (Batch Processing)
 
