@@ -78,10 +78,18 @@ if uploaded_file is not None:
                     fallback_data = refcheck.parse_fallback_metadata(ref_text)
                     info.update(fallback_data)
                     
-                    if meta.get('Source'): info['Journal'] = meta['Source']
-                    if meta.get('Volume'): info['Volume'] = meta['Volume']
-                    if meta.get('Issue'): info['Issue'] = meta['Issue']
-                    if meta.get('Pages'): info['Pages'] = meta['Pages']
+                    if meta.get('Source'): 
+                        info['Journal'] = meta['Source']
+                        info['RIS_Journal'] = meta['Source']
+                    if meta.get('Volume'): 
+                        info['Volume'] = meta['Volume']
+                        info['RIS_Volume'] = meta['Volume']
+                    if meta.get('Issue'): 
+                        info['Issue'] = meta['Issue']
+                        info['RIS_Issue'] = meta['Issue']
+                    if meta.get('Pages'): 
+                        info['Pages'] = meta['Pages']
+                        info['RIS_Pages'] = meta['Pages']
 
                     # Populate RIS Authors from metadata if available
                     if meta.get('Authors'):
