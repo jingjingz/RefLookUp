@@ -23,7 +23,8 @@ def parse_references_text(text):
     """
     Split the input text (TXT) into references.
     """
-    entries = [line.strip() for line in text.splitlines() if line.strip()]
+    # Return dict structure
+    entries = [{"title": None, "text": line.strip(), "metadata": {}} for line in text.splitlines() if line.strip()]
     return entries
 
 def parse_csv_content(text):
@@ -37,15 +38,36 @@ def parse_csv_content(text):
         for row in reader:
             # Flexible column checking
             if "Title" in row and row["Title"]:
-                # Construct a pseudo-ref for context if possible
-                title = row["Title"]
-                authors = row.get("Authors", "") or row.get("Author", "")
-                if authors:
-                    entries.append(f"{authors}. {title}")
-                else:
-                    entries.append(title)
+                title = row["Title"].strip()
+                # Handle potential BOM in Authors column
+                authors = row.get("Authors") or row.get("Author") or row.get("\ufeffAuthors") or ""
+                
+                # Extract other metadata for fallback
+                year = row.get("Year", "").strip()
+                source = row.get("Publication") or row.get("Journal") or row.get("Booktitle") or ""
+                volume = row.get("Volume", "").strip()
+                issue = row.get("Number", "").strip()
+                pages = row.get("Pages", "").strip()
+                
+                # Construct full text for display/fallback context
+                # We try to mimic a standard citation string for the 'text' field
+                full_text_parts = [authors, title, source, year]
+                full_text = ". ".join([p for p in full_text_parts if p]) + "."
+                
+                entries.append({
+                    "title": title,
+                    "text": full_text,
+                    "metadata": {
+                        "Year": year,
+                        "Source": source,
+                        "Volume": volume,
+                        "Issue": issue,
+                        "Pages": pages,
+                        "Authors": authors
+                    }
+                })
             elif "Citation" in row and row["Citation"]:
-                 entries.append(row["Citation"])
+                 entries.append({"title": None, "text": row["Citation"], "metadata": {}})
     except Exception as e:
         print(f"Error parsing CSV: {e}")
     return entries
@@ -55,27 +77,43 @@ def parse_bibtex_content(text):
     Parse BibTeX content string using Regex (Simple).
     """
     entries = []
-    # simple split by @article, @inproceedings etc might be rough.
-    # Lets iterate lines and find title={...}
-    # Better: finding entries
     
-    # Heuristic: split by @, then look for title field
+    # Heuristic: split by @, then look for key fields
     raw_entries = text.split('@')
     for raw in raw_entries:
         if not raw.strip(): continue
         
-        # Extract title
-        title_match = re.search(r'title\s*=\s*[\"{](.+?)[\"}]\s*[,}]', raw, re.IGNORECASE | re.DOTALL)
-        if title_match:
-            title = " ".join(title_match.group(1).split()) # normalize whitespace
+        # Helper to extract field
+        def get_field(name):
+            match = re.search(rf'{name}\s*=\s*[\"{{](.+?)[\"}}]\s*[,}}]', raw, re.IGNORECASE | re.DOTALL)
+            return " ".join(match.group(1).split()) if match else ""
+
+        title = get_field("title")
+        if title:
+            authors = get_field("author")
+            year = get_field("year")
+            # checked for journal OR booktitle
+            source = get_field("journal") or get_field("booktitle")
+            volume = get_field("volume")
+            number = get_field("number")
+            pages = get_field("pages")
             
-            # Extract author for context
-            author_match = re.search(r'author\s*=\s*[\"{](.+?)[\"}]\s*[,}]', raw, re.IGNORECASE | re.DOTALL)
-            if author_match:
-                authors = " ".join(author_match.group(1).split())
-                entries.append(f"{authors}. {title}")
-            else:
-                entries.append(title)
+            # Construct full text for display/validation
+            full_text_parts = [authors, title, source, year]
+            full_text = ". ".join([p for p in full_text_parts if p]) + "."
+            
+            entries.append({
+                "title": title,
+                "text": full_text,
+                "metadata": {
+                    "Year": year,
+                    "Source": source,
+                    "Volume": volume,
+                    "Issue": number,
+                    "Pages": pages,
+                    "Authors": authors
+                }
+            })
                 
     return entries
 
@@ -254,8 +292,13 @@ def format_apa_citation(item):
 
 def get_category(item):
     """
-    Determine category: Article, Abstract, or Other.
+    Determine category: Article, Abstract, Preprint, or Other.
     """
+    # Check for Preprints first
+    source = item.get("Source", "").lower()
+    if "arxiv" in source or "medrxiv" in source or "biorxiv" in source:
+        return "Preprint"
+        
     ptypes = item.get("PubTypeList", [])
     ptypes_lower = [p.lower() for p in ptypes]
     if any("abstract" in p for p in ptypes_lower):
@@ -696,19 +739,47 @@ if __name__ == "__main__":
                     
                 records = []
                 print(f"  Found {len(entries)} references/entries...")
-                for i, ref in enumerate(entries):
+                for i, entry in enumerate(entries):
                     if (i+1) % 5 == 0 or i == 0:
                          print(f"  {i+1}/{len(entries)}...")
-                    t = extract_title(ref)
+                    
+                    # Entry is a dict: {'title': ..., 'text': ...}
+                    ref_text = entry['text']
+                    
+                    # Use explicit title if available, otherwise extract
+                    if entry['title']:
+                        t = entry['title']
+                    else:
+                        t = extract_title(ref_text)
+                        
                     # Pass the full ref string (which might be author+title) for validation
-                    info = lookup_pubmed_info(t, full_ref_text=ref)
+                    info = lookup_pubmed_info(t, full_ref_text=ref_text)
                     
                     if not info["PMID"]:
-                        cleaned = clean_fallback_text(ref)
+                        cleaned = clean_fallback_text(ref_text)
                         info["RefText_NLM"] = cleaned
                         info["RefText_APA"] = cleaned
-                        info["Year"] = extract_year(ref)
-                        info.update(parse_fallback_metadata(ref))
+                        
+                        # Use metadata from parser if available (CSV/BibTeX), else extract from text
+                        meta = entry.get('metadata', {})
+                        info["Year"] = meta.get('Year') or extract_year(ref_text)
+                        
+                        # Update fallback data with parser metadata
+                        # We merge: parser metadata > extracted metadata (via fallback parser)
+                        fallback_extracted = parse_fallback_metadata(ref_text)
+                        info.update(fallback_extracted)
+                        
+                        if meta.get('Source'): info['Journal'] = meta['Source']
+                        if meta.get('Volume'): info['Volume'] = meta['Volume']
+                        if meta.get('Issue'): info['Issue'] = meta['Issue']
+                        if meta.get('Pages'): info['Pages'] = meta['Pages']
+                        
+                        # Re-format text with new metadata
+                        # (Simple re-construction if we have good metadata)
+                        if info['Journal'] and info['Year']:
+                             # NLM Style: Authors. Title. Journal. Year;Vol(Issue):Pages.
+                             # This is rough, but better than nothing.
+                             pass
                         
                     records.append(info)
                 

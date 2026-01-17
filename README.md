@@ -10,10 +10,11 @@ Stop manually searching for identifiers. Turn messy or AI-generated citation lis
 - **Metadata Enrichment**: Fills in missing details like publication year, volume, issue, and journal names.
 - **Format Standardization**: Convert references to **NLM** or **APA** style automatically.
 - **Article Categorization**: Distinguishes between full **Articles** and **Abstracts/Posters** based on publication type.
+- **Format Adaptive**: Automatically detects and processes text, CSV, and BibTeX files.
 - **Export Options**:
-  - **CSV**: For spreadsheet analysis (includes ArXiv IDs).
-  - **Text**: Formatted bibliography ready for word processors.
-  - **RIS**: Import directly into EndNote, Zotero, or Mendeley.
+  - **CSV**: Spreadsheet-ready output with enriched metadata and ArXiv IDs.
+  - **Text**: Formatted bibliographies (NLM/APA).
+  - **RIS**: Direct import for EndNote, Zotero, and Mendeley.
 - **ArXiv Support**: Automatically detects and formats arXiv preprints even if they aren't in PubMed.
 
 ## 🚀 Quick Start (Streamlit App)
@@ -45,29 +46,19 @@ The easiest way to use RefLookUp is via the web interface.
 
 4. **Open your browser** to the URL shown (usually `http://localhost:8501`).
 
-### ☁️ Deploying to Streamlit Cloud
+## 💻 CLI Usage (Batch Processing)
 
-1. Push this repository to your GitHub.
-2. Go to [share.streamlit.io](https://share.streamlit.io/).
-3. Create a **New App**.
-4. Select this repository and set the main file to `app.py`.
-5. **Important**: When using the hosted app, you MUST provide your email address in the sidebar so PubMed doesn't rate-limit the shared server IP.
+You can process multiple files at once directly from the terminal.
 
-## 💻 CLI Usage
-
-You can also run the tool directly from the terminal for batch processing.
-
-1. Create a file named `references.txt` with your list of citations.
+1. Place your input files (supported: `.txt`, `.csv`, `.bib`) inside the `input_examples/` folder.
 2. Run the script:
 
    ```bash
    python3 ref_utils.py
    ```
 
-3. Check the output files:
-   - `recent_references.csv`
-   - `recent_references.txt`
-   - `recent_references.ris`
+3. The script will automatically process **all valid files** found in `input_examples/`.
+4. Check the `output/` folder for your results (e.g., `citations_results.csv`, `mypapers_results.bib`).
 
 ## 🛠️ Project Structure
 

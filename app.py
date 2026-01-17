@@ -51,26 +51,42 @@ if uploaded_file is not None:
             total = len(entries)
             st.info(f"Parsed {total} items from {uploaded_file.name}")
             
-        for i, ref in enumerate(entries):
+        for i, entry in enumerate(entries):
+            # Entry is dict: {'title': ..., 'text': ...}
+            ref_text = entry['text']
+            
+            # Use explicit title if available, otherwise extract
+            if entry['title']:
+                title_query = entry['title']
+            else:
+                title_query = refcheck.extract_title(ref_text)
+
             # Display current reference (truncated)
-            short_ref = (ref[:60] + "...") if len(ref) > 60 else ref
+            short_ref = (ref_text[:60] + "...") if len(ref_text) > 60 else ref_text
             status_text.markdown(f"**Processing {i+1}/{total}**: `{short_ref}`")
             progress_bar.progress((i + 1) / total)
             
             # Atomic lookup
-            title_query = refcheck.extract_title(ref)
-            info = refcheck.lookup_pubmed_info(title_query, full_ref_text=ref, email=email_to_use)
+            info = refcheck.lookup_pubmed_info(title_query, full_ref_text=ref_text, email=email_to_use)
             
             # Fallback logic (replicated from old build_reference_table)
             if not info["PMID"]:
-                    cleaned_ref = refcheck.clean_fallback_text(ref)
+                    cleaned_ref = refcheck.clean_fallback_text(ref_text)
                     info["RefText_NLM"] = cleaned_ref
                     info["RefText_APA"] = cleaned_ref
-                    info["Year"] = refcheck.extract_year(ref)
                     
-                    # Attempt to parse fallback metadata for RIS
-                    fallback_data = refcheck.parse_fallback_metadata(ref)
+                    # Use metadata from parser if available
+                    meta = entry.get('metadata', {})
+                    info["Year"] = meta.get('Year') or refcheck.extract_year(ref_text)
+                    
+                    # Update fallback data with parser metadata
+                    fallback_data = refcheck.parse_fallback_metadata(ref_text)
                     info.update(fallback_data)
+                    
+                    if meta.get('Source'): info['Journal'] = meta['Source']
+                    if meta.get('Volume'): info['Volume'] = meta['Volume']
+                    if meta.get('Issue'): info['Issue'] = meta['Issue']
+                    if meta.get('Pages'): info['Pages'] = meta['Pages']
             
             results.append(info)
             
@@ -85,7 +101,7 @@ if st.session_state["results"]:
     # Sorting
     reverse_sort = (sort_option == "Newest")
     # Sort a copy for display/export
-    sorted_results = sorted(results, key=lambda x: x["Year"], reverse=reverse_sort)
+    sorted_results = sorted(results, key=lambda x: int(str(x.get("Year", 0)).strip() or 0) if str(x.get("Year", 0)).strip().isdigit() else 0, reverse=reverse_sort)
     
     # Prepare DataFrame
     df = pd.DataFrame(sorted_results)
