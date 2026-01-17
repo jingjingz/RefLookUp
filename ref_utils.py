@@ -542,12 +542,14 @@ def parse_fallback_metadata(text):
 
     # 4. Citation Details (Year, Volume, Issue, Pages)
     # Pattern: 2024;61(4):1876-1887 or 2024. 61(4):1876-1887
-    cit_match = re.search(r'(\d{4})[;.]\s*(\d+)[\(](\d+)[\)]:\s*(\d+(?:-\d+)?)', text)
+    # Updated: make pages optional
+    cit_match = re.search(r'(\d{4})[;.]\s*(\d+)[\(](\d+)[\)](?::\s*(\d+(?:-\d+)?))?', text)
     if cit_match:
-        # Group 1: Year, 2: Vol, 3: Issue, 4: Pages
+        # Group 1: Year, 2: Vol, 3: Issue, 4: Pages (optional)
         data["RIS_Volume"] = cit_match.group(2)
         data["RIS_Issue"] = cit_match.group(3)
-        data["RIS_Pages"] = cit_match.group(4)
+        if cit_match.group(4):
+            data["RIS_Pages"] = cit_match.group(4)
     else:
         # Try generic pattern Year;Vol:Pages (no issue)
         cit_match_2 = re.search(r'(\d{4})[;.]\s*(\d+):\s*(\d+(?:-\d+)?)', text)

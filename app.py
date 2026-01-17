@@ -181,7 +181,7 @@ if st.session_state["results"]:
     with c1:
         st.download_button(
             label="Download CSV",
-            data=csv_buffer.getvalue(),
+            data=csv_buffer.getvalue().encode('utf-8-sig'),
             file_name="recent_references.csv",
             mime="text/csv"
         )
