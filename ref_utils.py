@@ -420,8 +420,8 @@ def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com")
         # print(f"DEBUG: Composite Query: {composite_query}")
         
         # 1. Single API Call
-        time.sleep(0.1) # Reduced sleep
-        search_handle = Entrez.esearch(db="pubmed", term=composite_query, retmax=5) # Fetch a few more
+        # Removed sleep for performance as per user request
+        search_handle = Entrez.esearch(db="pubmed", term=composite_query, retmax=5) 
         search_results = Entrez.read(search_handle)
         search_handle.close()
         
@@ -429,12 +429,9 @@ def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com")
 
         if not id_list:
             return default_res
-
-        if not id_list:
-            return default_res
             
         # 2. Fetch Summaries for candidates
-        time.sleep(0.1) # Avoid burst rate limit
+        # Removed sleep
         summary_handle = Entrez.esummary(db="pubmed", id=",".join(id_list))
         summary_results = Entrez.read(summary_handle)
         summary_handle.close()
