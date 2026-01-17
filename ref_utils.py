@@ -77,6 +77,44 @@ def parse_csv_content(text):
         print(f"Error parsing CSV: {e}")
     return entries
 
+def format_bibtex_authors(bibtex_author_str):
+    """
+    Format BibTeX 'Last, First and Last, First' to 'Last F, Last F'.
+    Also handles 'others' -> 'et al'.
+    """
+    if not bibtex_author_str: return ""
+    
+    # Split by ' and ' (BibTeX delimiter)
+    # Check for ' and ' - some might be single author
+    authors = bibtex_author_str.split(' and ')
+    formatted = []
+    
+    for auth in authors:
+        clean_auth = auth.strip()
+        if clean_auth.lower() == 'others':
+            formatted.append("et al")
+            continue
+            
+        # Parse "Last, First"
+        if ',' in clean_auth:
+            parts = clean_auth.split(',')
+            last = parts[0].strip()
+            first = parts[1].strip() if len(parts) > 1 else ""
+            
+            # Initials only? Or keep full first?
+            # User wants "Display" like PubMed: "Last FM"
+            # But let's do "Last F" for simplicity and robustness
+            initials = "".join([n[0] for n in first.split() if n])
+            if initials:
+                formatted.append(f"{last} {initials}")
+            else:
+                formatted.append(last)
+        else:
+            # Maybe "First Last"? Assume string is name.
+            formatted.append(clean_auth)
+            
+    return ", ".join(formatted)
+
 def parse_bibtex_content(text):
     """
     Parse BibTeX content string using Regex (Simple).
@@ -95,10 +133,9 @@ def parse_bibtex_content(text):
 
         title = get_field("title")
         if title:
-            authors = get_field("author")
-            # Clean text: " and " -> ", ", "others" -> "et al"
-            if authors:
-                authors = authors.replace(" and ", ", ").replace("others", "et al")
+            raw_authors = get_field("author")
+            # Format nicely for display
+            authors = format_bibtex_authors(raw_authors)
             
             year = get_field("year")
             # checked for journal OR booktitle
