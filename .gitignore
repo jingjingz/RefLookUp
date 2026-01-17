@@ -18,4 +18,5 @@ run_app.sh
 
 # Tutorial Assets
 Tutorial/*.png
+Tutorial/*.docx
 !Tutorial/RefLookUp_Tutorial.pdf
