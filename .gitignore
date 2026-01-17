@@ -15,3 +15,7 @@ output/
 # Local
 run_app.sh
 .streamlit/
+
+# Tutorial Assets
+Tutorial/*.png
+!Tutorial/RefLookUp_Tutorial.pdf
