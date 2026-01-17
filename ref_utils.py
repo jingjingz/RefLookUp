@@ -51,7 +51,12 @@ def parse_csv_content(text):
                 
                 # Construct full text for display/fallback context
                 # We try to mimic a standard citation string for the 'text' field
-                full_text_parts = [authors, title, source, year]
+                cit_details = year
+                if volume: cit_details += f";{volume}"
+                if issue: cit_details += f"({issue})"
+                if pages: cit_details += f":{pages}"
+
+                full_text_parts = [authors, title, source, cit_details]
                 full_text = ". ".join([p for p in full_text_parts if p]) + "."
                 
                 entries.append({
@@ -99,7 +104,13 @@ def parse_bibtex_content(text):
             pages = get_field("pages")
             
             # Construct full text for display/validation
-            full_text_parts = [authors, title, source, year]
+            # Format: 'Authors. Title. Journal. Year;Volume(Issue):Pages.'
+            cit_details = year
+            if volume: cit_details += f";{volume}"
+            if number: cit_details += f"({number})"
+            if pages: cit_details += f":{pages}"
+
+            full_text_parts = [authors, title, source, cit_details]
             full_text = ". ".join([p for p in full_text_parts if p]) + "."
             
             entries.append({
