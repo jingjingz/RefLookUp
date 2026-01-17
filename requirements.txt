@@ -2,3 +2,4 @@ streamlit==1.41.1
 pandas
 biopython
 watchdog
+# Force rebuild Fri Jan 16 18:11:22 PST 2026
