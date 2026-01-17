@@ -139,22 +139,25 @@ if st.session_state["results"]:
         
     st.subheader("Results Table")
     
-    # Config for clickable links
-    column_config = {
-        "Link": st.column_config.LinkColumn(
-            "Link",
-            help="Click to open reference",
-            validate="^https://.*",
-            display_text="View Paper"
-        )
-    }
-    
     st.dataframe(
         df[disp_cols],
-        use_container_width=True,
-        column_config=column_config,
-        hide_index=True
+        column_config={
+            "Year": st.column_config.NumberColumn(
+                "Year",
+                format="%d"
+            ),
+            "Link": st.column_config.LinkColumn(
+                "Link",
+                help="Click to open reference",
+                validate="^https://.*",
+                display_text="View Paper"
+            ),
+            "FullCitation": st.column_config.TextColumn("Full Citation", width="large")
+        },
+        use_container_width=True
     )
+    
+
     
     st.divider()
     st.subheader("Download Results")
