@@ -802,6 +802,10 @@ if __name__ == "__main__":
                         if meta.get('Pages'): 
                             info['Pages'] = meta['Pages']
                             info['RIS_Pages'] = meta['Pages']
+                            info['RIS_Issue'] = meta['Issue']
+                        if meta.get('Pages'): 
+                            info['Pages'] = meta['Pages']
+                            info['RIS_Pages'] = meta['Pages']
                         
                         # Populate RIS Authors from metadata if available to avoid bad re-parsing
                         if meta.get('Authors'):
