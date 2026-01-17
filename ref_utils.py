@@ -437,18 +437,17 @@ def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com")
                 surnames = []
 
             if extracted_title and len(extracted_title) > 10 and surnames:
-                keywords = " ".join(extracted_title.split()[:4])
+                keywords = " ".join(extracted_title.split()[:6])
                 auth_query = " OR ".join([f"{s}[Author]" for s in surnames if len(s)>1])
                 if auth_query:
                     qs.append(f"(({auth_query}) AND {keywords}[Title])")
         
         # Join into single composite query
         composite_query = " OR ".join(qs)
-        # print(f"DEBUG: Composite Query: {composite_query}")
         
         # 1. Single API Call
         # Removed sleep for performance as per user request
-        search_handle = Entrez.esearch(db="pubmed", term=composite_query, retmax=5) 
+        search_handle = Entrez.esearch(db="pubmed", term=composite_query, retmax=20) 
         search_results = Entrez.read(search_handle)
         search_handle.close()
         
