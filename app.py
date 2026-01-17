@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import io
 import csv
-import refcheck
+import ref_utils as refcheck
 
 st.set_page_config(page_title="RefLookUp", page_icon="📚", layout="wide")
 

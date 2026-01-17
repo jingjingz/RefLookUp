@@ -61,7 +61,7 @@ You can also run the tool directly from the terminal for batch processing.
 2. Run the script:
 
    ```bash
-   python3 refcheck.py
+   python3 ref_utils.py
    ```
 
 3. Check the output files:
@@ -72,7 +72,7 @@ You can also run the tool directly from the terminal for batch processing.
 ## 🛠️ Project Structure
 
 - `app.py`: The Streamlit web application.
-- `refcheck.py`: Core logic for PubMed searching, parsing, and formatting.
+- `ref_utils.py`: Core logic for PubMed searching, parsing, and formatting.
 - `requirements.txt`: Python dependencies.
 - `run_app.sh`: Helper script to launch the app reliably.
 
