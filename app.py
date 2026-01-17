@@ -87,6 +87,14 @@ if uploaded_file is not None:
                     if meta.get('Volume'): info['Volume'] = meta['Volume']
                     if meta.get('Issue'): info['Issue'] = meta['Issue']
                     if meta.get('Pages'): info['Pages'] = meta['Pages']
+
+                    # Populate RIS Authors from metadata if available
+                    if meta.get('Authors'):
+                        raw_auths = meta['Authors']
+                        if " and " in raw_auths:
+                            info['RIS_Authors'] = [a.strip() for a in raw_auths.split(' and ')]
+                        else:
+                            info['RIS_Authors'] = [a.strip() for a in raw_auths.split(',')]
             
             results.append(info)
             

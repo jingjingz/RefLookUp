@@ -519,11 +519,15 @@ def parse_fallback_metadata(text):
     if len(parts) >= 2:
         # Part 0 is likely authors
         raw_authors = parts[0]
-        # Split authors by comma
-        # "Smith J, Doe A" -> ["Smith J", "Doe A"]
-        # Filter out things that look like dates or weird stuff? 
-        # For now, just simplistic splitting
-        auths = [a.strip() for a in raw_authors.split(',')]
+        
+        # Check if authors are separated by " and " (BibTeX style) or "," (Standard)
+        if " and " in raw_authors:
+             # Split by " and ", and cleanup
+             auths = [a.strip() for a in raw_authors.split(' and ')]
+        else:
+             # Standard comma split
+             auths = [a.strip() for a in raw_authors.split(',')]
+             
         data["RIS_Authors"] = auths
         
         # Part 1 is likely Title
@@ -773,6 +777,16 @@ if __name__ == "__main__":
                         if meta.get('Volume'): info['Volume'] = meta['Volume']
                         if meta.get('Issue'): info['Issue'] = meta['Issue']
                         if meta.get('Pages'): info['Pages'] = meta['Pages']
+                        
+                        # Populate RIS Authors from metadata if available to avoid bad re-parsing
+                        if meta.get('Authors'):
+                            raw_auths = meta['Authors']
+                            if " and " in raw_auths:
+                                info['RIS_Authors'] = [a.strip() for a in raw_auths.split(' and ')]
+                            else:
+                                # Fallback or already comma separated?
+                                # If CSV, likely comma or semicolon. Let's assume comma for now or no split if complex.
+                                info['RIS_Authors'] = [a.strip() for a in raw_auths.split(',')]
                         
                         # Re-format text with new metadata
                         # (Simple re-construction if we have good metadata)
