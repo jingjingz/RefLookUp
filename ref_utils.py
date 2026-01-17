@@ -96,6 +96,10 @@ def parse_bibtex_content(text):
         title = get_field("title")
         if title:
             authors = get_field("author")
+            # Clean text: " and " -> ", ", "others" -> "et al"
+            if authors:
+                authors = authors.replace(" and ", ", ").replace("others", "et al")
+            
             year = get_field("year")
             # checked for journal OR booktitle
             source = get_field("journal") or get_field("booktitle")
