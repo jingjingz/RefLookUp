@@ -50,7 +50,7 @@ The easiest way to use RefLookUp is via the web interface: **[https://reflookup.
 
 Use RefLookUp to verify your publications and easily import them into **MyNCBI** for your NIH Biosketch.
 
-📄 **[Download Step-by-Step Tutorial (Word Doc)](Tutorial/RefLookUp_Tutorial.docx)**
+📄 **[Download Step-by-Step Tutorial (PDF)](Tutorial/RefLookUp_Tutorial.pdf)**
 
 ## 💻 CLI Usage (Batch Processing)
 
