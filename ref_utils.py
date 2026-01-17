@@ -344,6 +344,26 @@ def lookup_pubmed_info(query, full_ref_text=None, email="A.N.Other@example.com")
         search_handle.close()
         
         id_list = search_results["IdList"]
+        
+        # 2. Retry with extracted title if no results found
+        if not id_list:
+            # Try to extract a clean title from the query/ref_text
+            # Use full_ref_text if available as it might be cleaner than query
+            text_to_use = full_ref_text if full_ref_text else query
+            extracted_title = extract_title(text_to_use)
+            
+            # Remove authors/journal if extract_title is heuristic, 
+            # effectively we want a clean string. 
+            # If extracted_title is significantly different/shorter than query, use it.
+            if extracted_title and len(extracted_title) > 10:
+                 # Construct retry query
+                 retry_query = f"{extracted_title}[Title]"
+                 # time.sleep(0.1) # small delay
+                 search_handle_retry = Entrez.esearch(db="pubmed", term=retry_query, retmax=3)
+                 search_results_retry = Entrez.read(search_handle_retry)
+                 search_handle_retry.close()
+                 id_list = search_results_retry["IdList"]
+
         if not id_list:
             return default_res
             
