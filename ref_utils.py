@@ -715,10 +715,11 @@ def save_to_files(records, csv_path, txt_path, style="NLM", sort_by="Newest", gr
     
     # Sorting
     reverse = (sort_by == "Newest")
-    records.sort(key=lambda x: x["Year"], reverse=reverse)
+    # robust sort key
+    records.sort(key=lambda x: int(x["Year"]) if str(x["Year"]).isdigit() else 0, reverse=reverse)
     
     # CSV Write (Combined)
-    with open(csv_path, "w", newline='', encoding="utf-8") as f:
+    with open(csv_path, "w", newline='', encoding="utf-8-sig") as f:
         # Added ArXivID to columns
         fieldnames = ["FullCitation", "PMID", "PMCID", "DOI", "ArXivID", "Year", "Link", "Category"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -810,11 +811,19 @@ def save_to_files(records, csv_path, txt_path, style="NLM", sort_by="Newest", gr
 
 
 if __name__ == "__main__":
-    try:
-        input_dir = "input_examples"
-        output_dir = "output"
-        import os
-        
+    import argparse
+    import os
+    
+    parser = argparse.ArgumentParser(description="Process reference files.")
+    parser.add_argument("input_dir", nargs='?', default="input_example", help="Input directory containing .csv, .txt, or .bib files")
+    parser.add_argument("output_dir", nargs='?', default="output", help="Output directory for results")
+    
+    args = parser.parse_args()
+    
+    input_dir = args.input_dir
+    output_dir = args.output_dir
+    
+    try:        
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
             
@@ -824,6 +833,8 @@ if __name__ == "__main__":
             print(f"Input directory '{input_dir}' not found.")
         else:
             files_found = [f for f in os.listdir(input_dir) if any(f.endswith(ext) for ext in supported_exts)]
+            # Filter specifically for what user might want if many files exist? 
+            # No, just process all supported files in dir.
             print(f"Found {len(files_found)} files to process in {input_dir}: {files_found}")
             
             for filename in files_found:
