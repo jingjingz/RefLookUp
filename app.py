@@ -18,8 +18,6 @@ if "results" not in st.session_state:
 
 # Sidebar Options
 st.sidebar.header("Options")
-# Email for Entrez
-entrez_email = st.sidebar.text_input("Entrez Email (Required for PubMed)", value="", placeholder="your.email@example.com", help="NCBI requires a valid email for API access. Providing this prevents rate-limiting errors.")
 
 style_option = st.sidebar.selectbox("Citation Style", ["NLM", "APA"])
 sort_option = st.sidebar.radio("Sort Order", ["Newest", "Oldest"])
@@ -30,15 +28,12 @@ uploaded_file = st.file_uploader("Choose a file (txt, csv, bib)", type=["txt", "
 if uploaded_file is not None:
     # Button to trigger search
     if st.button("Search References"):
-        if not entrez_email or "@" not in entrez_email:
-             st.warning("⚠️ Please enter a valid email address in the sidebar to ensure PubMed access.")
-        
         # Read file as string
         stringio = io.StringIO(uploaded_file.getvalue().decode("utf-8", errors='replace'))
         raw_text = stringio.read()
         
-        # Use provided email or fallback (though fallback often fails on cloud)
-        email_to_use = entrez_email if entrez_email else "A.N.Other@example.com"
+        # Use default email to satisfy Entrez requirements
+        email_to_use = "tool@reflookup.com"
         
         # Prepare UI elements
         progress_bar = st.progress(0)
@@ -113,6 +108,14 @@ if st.session_state["results"]:
     
     # Prepare DataFrame
     df = pd.DataFrame(sorted_results)
+    
+    # Check/Fix 'Year' column for Arrow compatibility
+    # Ensure it's all numeric (int), replace errors with 0
+    if "Year" in df.columns:
+        df["Year"] = pd.to_numeric(df["Year"], errors='coerce').fillna(0).astype(int)
+        # Convert 0 back to empty string if desired? No, sorting needs ints.
+        # But display might look better as string. 
+        # Streamlit Column Config 'Number' handles formatting (e.g. no commas).
     
     # Ensure Citation Column based on style
     cit_col = "RefText_NLM" if style_option == "NLM" else "RefText_APA"
