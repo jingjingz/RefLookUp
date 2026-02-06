@@ -196,6 +196,117 @@ def parse_bibtex_content(text):
                 
     return entries
 
+def parse_ris_content(text):
+    """
+    Parse RIS content string.
+    """
+    entries = []
+    
+    # Split by lines
+    lines = text.splitlines()
+    
+    # State
+    in_entry = False
+    current_fields = {}
+
+    def flush_entry(fields):
+        if not fields: return None
+        
+        # Map to app structure
+        ti = fields.get('TI', []) or fields.get('T1', [])
+        title = ti[0].strip() if ti else ""
+        if not title: return None # minimal requirement?
+        
+        # Authors: Merge AU and A1
+        authors_list = fields.get('AU', []) + fields.get('A1', [])
+        authors = ", ".join([a.strip() for a in authors_list])
+        
+        # Metadata
+        source = (fields.get('JO', []) or fields.get('T2', []) or fields.get('JA', []) or [""])[0].strip()
+        
+        # Year (PY or Y1) - typically YYYY/MM/DD, take first 4 chars
+        y_raw = (fields.get('PY', []) or fields.get('Y1', []) or [""])[0].strip()
+        year = y_raw[:4] if len(y_raw) >= 4 else y_raw
+        
+        vol = (fields.get('VL', []) or [""])[0].strip()
+        issue = (fields.get('IS', []) or [""])[0].strip()
+        
+        # Pages: SP and EP
+        sp = (fields.get('SP', []) or [""])[0].strip()
+        ep = (fields.get('EP', []) or [""])[0].strip()
+        pages = f"{sp}-{ep}" if sp and ep else sp
+        
+        # Construct Text: "Authors. Title. Source. Year;Vol(Issue):Pages."
+        parts = []
+        if authors: parts.append(authors)
+        if title: parts.append(title)
+        if source: parts.append(source)
+        
+        cit_details = year
+        if vol: cit_details += f";{vol}"
+        if issue: cit_details += f"({issue})"
+        if pages: cit_details += f":{pages}"
+        
+        if cit_details: parts.append(cit_details)
+        
+        full_text = ". ".join([p for p in parts if p]) + "."
+        
+        return {
+            "title": title,
+            "text": full_text,
+            "metadata": {
+                "Year": year,
+                "Source": source,
+                "Volume": vol,
+                "Issue": issue,
+                "Pages": pages,
+                "Authors": authors
+            }
+        }
+
+    for line in lines:
+        line = line.strip()
+        if not line: continue
+        
+        # Regex for standard RIS tag: 2 uppercase chars, whitespace, dash, whitespace
+        match = re.match(r'^([A-Z0-9]{2})\s+-\s+(.*)', line)
+        if not match:
+             # handle loose check if strictly required, but standard RIS is fairly strict
+             continue
+             
+        tag = match.group(1)
+        val = match.group(2).strip()
+
+        if tag == 'TY':
+            # Start new entry. If one was open, flush it (though ER should have closed it)
+            if in_entry:
+                rec = flush_entry(current_fields)
+                if rec: entries.append(rec)
+                current_fields = {}
+            in_entry = True
+            current_fields['TY'] = [val]
+            continue
+            
+        if tag == 'ER':
+            # End entry
+            rec = flush_entry(current_fields)
+            if rec: entries.append(rec)
+            current_fields = {}
+            in_entry = False
+            continue
+            
+        if in_entry:
+            if tag not in current_fields:
+                current_fields[tag] = []
+            current_fields[tag].append(val)
+            
+    # Flush last if no ER
+    if in_entry:
+        rec = flush_entry(current_fields)
+        if rec: entries.append(rec)
+        
+    return entries
+
 def parse_any_input(content, filename):
     """
     Dispatch based on filename extension.
@@ -205,6 +316,8 @@ def parse_any_input(content, filename):
         return parse_csv_content(content)
     elif ext in ['bib', 'bibtex']:
         return parse_bibtex_content(content)
+    elif ext == 'ris':
+        return parse_ris_content(content)
     else:
         return parse_references_text(content)
 

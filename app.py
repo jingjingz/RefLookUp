@@ -23,7 +23,7 @@ style_option = st.sidebar.selectbox("Citation Style", ["NLM", "APA"])
 sort_option = st.sidebar.radio("Sort Order", ["Newest", "Oldest"])
 group_option = st.sidebar.checkbox("Group by Type (Articles/Abstracts)", value=True)
 
-uploaded_file = st.file_uploader("Choose a file (txt, csv, bib)", type=["txt", "csv", "bib"])
+uploaded_file = st.file_uploader("Choose a file (txt, csv, bib, ris)", type=["txt", "csv", "bib", "ris"])
 
 if uploaded_file is not None:
     # Button to trigger search
