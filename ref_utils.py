@@ -1046,10 +1046,6 @@ if __name__ == "__main__":
                         if meta.get('Pages'): 
                             info['Pages'] = meta['Pages']
                             info['RIS_Pages'] = meta['Pages']
-                            info['RIS_Issue'] = meta['Issue']
-                        if meta.get('Pages'): 
-                            info['Pages'] = meta['Pages']
-                            info['RIS_Pages'] = meta['Pages']
                         
                         # Populate RIS Authors from metadata if available to avoid bad re-parsing
                         if meta.get('Authors'):
@@ -1061,12 +1057,7 @@ if __name__ == "__main__":
                                 # If CSV, likely comma or semicolon. Let's assume comma for now or no split if complex.
                                 info['RIS_Authors'] = [a.strip() for a in raw_auths.split(',')]
                         
-                        # Re-format text with new metadata
-                        # (Simple re-construction if we have good metadata)
-                        if info['Journal'] and info['Year']:
-                             # NLM Style: Authors. Title. Journal. Year;Vol(Issue):Pages.
-                             # This is rough, but better than nothing.
-                             pass
+
                         
                     records.append(info)
                 
